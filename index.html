@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Merriweather" rel="stylesheet">
+    <title></title>
+  </head>
+  <body>
+    <section id="intro">
+      <div id="greeting">
+        <h1>Welcome!</h1>
+        <p>Thank you for taking the time to assist us in our market research. Bus Mall is an up and coming product magazine that will soon be featured in hundreds of Seattle's bus's and in the hands of thousands of people.</p>
+        <p>Our goal for today is to see what products interest <em>you</em> the most. Please keep in mind these items for the following screens.</p>
+        <ol>
+          <li>Please answer by clicking on the image of the product you would most likely purchase.</li>
+          <li>Your results will be displayed once you are done.</li>
+        </ol>
+        <button type="button" id="startButton">Get Started</button>
+      </div>
+    </section>
+    <section id="test" class="hideSection">
+      <h1>Choose</h1>
+      <div class="row">
+      <div id="image1"></div>
+      <div id="image2"></div>
+      <div id="image3"></div>
+      </div>
+    </section>
+    <section id="results" class="hideSection">
+      <table>
+        <h1>Results</h1>
+        <p>Thank you for your time. We really value your opinions. Your input will help us deliver only the best products to the market!</p>
+        <h2>Your Votes</h2>
+        <ul id="votes">
+        </ul>
+        <h2>Statistics</h2>
+        <thead><tr  id='resultsHeaderRow'></tr></thead>
+        <tbody id='resultsTableBody'></tbody>
+      </table>
+    </section>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
