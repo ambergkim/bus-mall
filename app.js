@@ -1,8 +1,7 @@
-var clicks = 0;
+var overAllClicks = 0;
 var image1El = document.getElementById('image1');
 var image2El = document.getElementById('image2');
 var image3El = document.getElementById('image3');
-
 var allImages = [];
 
 function Image(name, source){
@@ -12,7 +11,6 @@ function Image(name, source){
   this.clicks = 0;
   this.clicksPerView = this.clicks / this.views;
   this.clicksPerOverall = this.clicks / 25;
-  this.canBeShown = 3;
   allImages.push(this);
 }
 
@@ -79,19 +77,48 @@ function showNewImages() {
   image1Tag.setAttribute('src', image1Source);
   image2Tag.setAttribute('src', image2Source);
   image3Tag.setAttribute('src', image3Source);
-  image1Tag.setAttribute('width', '100px');
-  image2Tag.setAttribute('width', '100px');
-  image3Tag.setAttribute('width', '100px');
-  image1Tag.setAttribute('height', '100px');
-  image2Tag.setAttribute('height', '100px');
-  image3Tag.setAttribute('height', '100px');
+  image1Tag.setAttribute('class', 'productImages');
+  image2Tag.setAttribute('class', 'productImages');
+  image3Tag.setAttribute('class', 'productImages');
+  image1Tag.setAttribute('id', allImages[queue[3]].name);
+  image2Tag.setAttribute('id', allImages[queue[4]].name);
+  image3Tag.setAttribute('id', allImages[queue[5]].name);
   image1El.appendChild(image1Tag);
   image2El.appendChild(image2Tag);
   image3El.appendChild(image3Tag);
-  console.log('image 1 ' + image1Source);
-  console.log('image 2 ' + image2Source);
-  console.log('image 3 ' + image3Source);
-  console.log('***');
+  allImages[queue[3]].views++;
+  allImages[queue[4]].views++;
+  allImages[queue[5]].views++;
+  console.log(allImages[queue[3]].name + ' views ' + allImages[queue[3]].views);
+  console.log(allImages[queue[4]].name + ' views ' + allImages[queue[4]].views);
+  console.log(allImages[queue[5]].name + ' views ' + allImages[queue[5]].views);
+  overAllClicks++;
+  console.log('overall clicks ' + overAllClicks);
+}
+
+function clearDivs() {
+  image1El.removeChild(image1El.lastChild);
+  image2El.removeChild(image2El.lastChild);
+  image3El.removeChild(image3El.lastChild);
 }
 
 showNewImages();
+
+image1El.addEventListener('click', function(){
+  allImages[queue[3]].clicks++;
+  console.log(allImages[queue[3]].name + ' clicks ' + allImages[queue[3]].clicks);
+  clearDivs();
+  showNewImages();
+});
+image2El.addEventListener('click', function(){
+  allImages[queue[4]].clicks++;
+  console.log(allImages[queue[4]].name + ' clicks ' + allImages[queue[4]].clicks);
+  clearDivs();
+  showNewImages();
+});
+image3El.addEventListener('click', function(){
+  allImages[queue[5]].clicks++;
+  console.log(allImages[queue[5]].name + ' clicks ' + allImages[queue[5]].clicks);
+  clearDivs();
+  showNewImages();
+});
