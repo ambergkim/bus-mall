@@ -9,7 +9,7 @@ var resultSection = document.getElementById('results');
 var allImages = [];
 var resultsHeaderRow = document.getElementById('resultsHeaderRow');
 var resultsTableBody = document.getElementById('resultsTableBody');
-var resultHeaderArray = ['Image', 'Views', 'Clicks', 'Clicks Per View', 'Overall Performance'];
+var resultHeaderArray = ['Image', 'Views', 'Clicks', '% Clicks/View', '% Clicks/25'];
 
 function Image(name, source){
   this.name = name;
@@ -20,7 +20,7 @@ function Image(name, source){
     if (this.views === 0) {
       return 0;
     } else {
-      return (this.clicks / this.views) * 100;
+      return ((this.clicks / this.views) * 100).toFixed(2);
     }
   };
   this.clicksPerOverall = function() {
@@ -104,11 +104,7 @@ function showNewImages() {
   allImages[queue[3]].views++;
   allImages[queue[4]].views++;
   allImages[queue[5]].views++;
-  console.log(allImages[queue[3]].name + ' views ' + allImages[queue[3]].views);
-  console.log(allImages[queue[4]].name + ' views ' + allImages[queue[4]].views);
-  console.log(allImages[queue[5]].name + ' views ' + allImages[queue[5]].views);
   overAllClicks++;
-  console.log('overall clicks ' + overAllClicks);
 }
 
 function clearDivs() {
@@ -162,7 +158,6 @@ function showResults(){
 
 image1El.addEventListener('click', function(){
   allImages[queue[3]].clicks++;
-  console.log(allImages[queue[3]].name + ' clicks ' + allImages[queue[3]].clicks);
   if (overAllClicks < 25) {
     clearDivs();
     showNewImages();
@@ -173,7 +168,6 @@ image1El.addEventListener('click', function(){
 });
 image2El.addEventListener('click', function(){
   allImages[queue[4]].clicks++;
-  console.log(allImages[queue[4]].name + ' clicks ' + allImages[queue[4]].clicks);
   if (overAllClicks < 25) {
     clearDivs();
     showNewImages();
@@ -184,7 +178,6 @@ image2El.addEventListener('click', function(){
 });
 image3El.addEventListener('click', function(){
   allImages[queue[5]].clicks++;
-  console.log(allImages[queue[5]].name + ' clicks ' + allImages[queue[5]].clicks);
   if (overAllClicks < 25) {
     clearDivs();
     showNewImages();
