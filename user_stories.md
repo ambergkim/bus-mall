@@ -1,13 +1,13 @@
 # BUS MALL PROJECT USER STORiES
 
-## CLIENT
-* I want to present 20 products to a USER
-* I want to get a user's unbiased, honest opinion
-* I want only three images to show at one time
-* I want to make an informed decision on which products would do best in my magazine
-* I want a detailed report of these products that is easy to read and interpret
+## MARKET RESEARCH TEAM MEMBERS
+* We want to present 20 products to a USER
+* We want to get a user's unbiased, honest opinion
+* We want only three images to show at one time
+* We want to make an informed decision on which products would do best in my magazine
+* We want a detailed report of these products that is easy to read and interpret
 
-## USER
+## FOCUS GROUP PARTICIPANT
 * I want to know what to do to get started right away
 * I want to be able to easily navigate the app
 * I want to make all my decisions before I see the results of my 'test'

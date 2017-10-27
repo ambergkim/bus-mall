@@ -5,6 +5,7 @@ var image1El = document.getElementById('image1');
 var image2El = document.getElementById('image2');
 var image3El = document.getElementById('image3');
 var testSection = document.getElementById('test');
+var votesList = document.getElementById('votes');
 var resultSection = document.getElementById('results');
 var allImages = [];
 var resultsHeaderRow = document.getElementById('resultsHeaderRow');
@@ -117,6 +118,15 @@ showNewImages();
 
 function showResults(){
   resultSection.classList.remove('hideSection');
+  for (var h = 0; h < allImages.length; h++) {
+    currentListImage = allImages[h];
+    if (currentListImage.clicks > 0) {
+      var li = document.createElement('li');
+      var liText = document.createTextNode(currentListImage.clicks + ' votes for: ' + currentListImage.name + '.');
+      li.appendChild(liText);
+      votesList.appendChild(li);
+    }
+  }
   for (var i = 0; i < resultHeaderArray.length; i++) {
     var text = resultHeaderArray[i];
     var td = document.createElement('td');
