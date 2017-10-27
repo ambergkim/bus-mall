@@ -12,7 +12,6 @@ h1 {
   display: table;
   margin-bottom: 2em;
 }
-
 h1::before, h1::after {
   border-top: 1px solid #556e07;
   content: '';
@@ -21,12 +20,15 @@ h1::before, h1::after {
   top: 0.5em;
   width: 45%;
 }
-
 h1::before {
   right: 1.5%;
 }
 h1::after{
   left: 1.5%;
+}
+
+h2 {
+  margin-top: 1.5em;
 }
 
 ol {
