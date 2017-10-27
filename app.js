@@ -9,7 +9,7 @@ var resultSection = document.getElementById('results');
 var allImages = [];
 var resultsHeaderRow = document.getElementById('resultsHeaderRow');
 var resultsTableBody = document.getElementById('resultsTableBody');
-var resultHeaderArray = ['Image', 'Views', 'Clicks', '% Clicks/View', '% Clicks/25'];
+var resultHeaderArray = ['Image', 'Views', 'Clicks', '% Clicks/View', '% Clicks Overall'];
 
 function Image(name, source){
   this.name = name;
@@ -116,6 +116,7 @@ function clearDivs() {
 showNewImages();
 
 function showResults(){
+  resultSection.classList.remove('hideSection');
   for (var i = 0; i < resultHeaderArray.length; i++) {
     var text = resultHeaderArray[i];
     var td = document.createElement('td');

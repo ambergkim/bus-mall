@@ -1,8 +1,76 @@
+body {
+  font-family: 'Merriweather', serif;
+  text-align: center;
+  margin: 10%;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  color: #262d13;
+}
+
+ol {
+  text-align: left;
+  margin: 5% 25%;
+}
+
+table {
+  width: 100%;
+  border: solid 2px #262d13;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background-color: #556e07;
+  color: white;
+}
+
+tbody tr:nth-child(2n) {
+  background-color: #d9e2e5;
+}
+
+tbody tr:hover {
+  background-color: #6e7d7b;
+}
+
+td {
+  border: solid 2px #262d13;
+  padding: 1em;
+}
+
+button {
+  font-family: 'Lato', sans-serif;
+  background-color: #556e07;
+  text-transform: uppercase;
+  color: white;
+  font-size: 2em;
+  border-style: none;
+  padding: 0.25em 1em;
+}
+
+button:hover {
+  background-color: #6e7d7b;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .productImages {
-  width: 30%;
-  height: 30%;
+  width: 250px;
+  height: 250px;
+  flex-grow: 1;
+  border: solid 2px #262d13;
 }
 
 .hideSection {
   display: none;
+}
+
+#greeting {
+  margin-top: 15vh;
 }
