@@ -54,7 +54,8 @@ button:hover {
   background-color: #6e7d7b;
 }
 
-li {
+ul {
+  padding-left: 0;
   list-style: none;
 }
 
