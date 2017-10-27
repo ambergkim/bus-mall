@@ -50,18 +50,32 @@ console.log('queue ' + queue);
 
 function findAMatch(number) {
   return queue.indexOf(number);
+  console.log('index of match ' + queue.indexOf(number));
 }
 
 function showNewImages() {
   var random1 = generateRandomNumber();
   var random2 = generateRandomNumber();
   var random3 = generateRandomNumber();
-  while (findAMatch(random1) != -1) {
+  var is1Matching = findAMatch(random1);
+  while (findAMatch(random1) >= 0) {
     random1 = generateRandomNumber();
-  }
+  };
   queue.push(random1);
   queue.shift();
-  console.log('queue with new number' + queue);
+  console.log('queue with new number 1 ' + queue);
+  while (findAMatch(random2) >= 0) {
+    random2 = generateRandomNumber();
+  };
+  queue.push(random2);
+  queue.shift();
+  console.log('queue with new number 2 ' + queue);
+  while (findAMatch(random3) >= 0) {
+    random3 = generateRandomNumber();
+  };
+  queue.push(random3);
+  queue.shift();
+  console.log('queue with new number 3 ' + queue);
 }
 
 for (var i = 0; i < 25; i++) {
