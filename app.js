@@ -42,15 +42,12 @@ function generateRandomNumber(){
 }
 
 var queue = [];
-for (var i = 0; i < 6; i++) {
+for (var i = 0; i < 6; i++) {//populate queue with six numbers as placeholders
   queue.push(generateRandomNumber());
 }
 
-console.log('queue ' + queue);
-
 function findAMatch(number) {
   return queue.indexOf(number);
-  console.log('index of match ' + queue.indexOf(number));
 }
 
 function showNewImages() {
@@ -63,22 +60,38 @@ function showNewImages() {
   };
   queue.push(random1);
   queue.shift();
-  console.log('queue with new number 1 ' + queue);
   while (findAMatch(random2) >= 0) {
     random2 = generateRandomNumber();
   };
   queue.push(random2);
   queue.shift();
-  console.log('queue with new number 2 ' + queue);
   while (findAMatch(random3) >= 0) {
     random3 = generateRandomNumber();
   };
   queue.push(random3);
   queue.shift();
-  console.log('queue with new number 3 ' + queue);
+  var image1Source = allImages[queue[3]].source;
+  var image2Source = allImages[queue[4]].source;
+  var image3Source = allImages[queue[5]].source;
+  var image1Tag = document.createElement('img');
+  var image2Tag = document.createElement('img');
+  var image3Tag = document.createElement('img');
+  image1Tag.setAttribute('src', image1Source);
+  image2Tag.setAttribute('src', image2Source);
+  image3Tag.setAttribute('src', image3Source);
+  image1Tag.setAttribute('width', '100px');
+  image2Tag.setAttribute('width', '100px');
+  image3Tag.setAttribute('width', '100px');
+  image1Tag.setAttribute('height', '100px');
+  image2Tag.setAttribute('height', '100px');
+  image3Tag.setAttribute('height', '100px');
+  image1El.appendChild(image1Tag);
+  image2El.appendChild(image2Tag);
+  image3El.appendChild(image3Tag);
+  console.log('image 1 ' + image1Source);
+  console.log('image 2 ' + image2Source);
+  console.log('image 3 ' + image3Source);
+  console.log('***');
 }
 
-for (var i = 0; i < 25; i++) {
-  showNewImages();
-  console.log('queue ' + queue);
-}
+showNewImages();
