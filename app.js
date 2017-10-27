@@ -1,16 +1,31 @@
 var overAllClicks = 0;
+var introSection = document.getElementById('intro');
+var startButton = document.getElementById('startButton');
 var image1El = document.getElementById('image1');
 var image2El = document.getElementById('image2');
 var image3El = document.getElementById('image3');
+var testSection = document.getElementById('test');
+var resultSection = document.getElementById('results');
 var allImages = [];
+var resultsHeaderRow = document.getElementById('resultsHeaderRow');
+var resultsTableBody = document.getElementById('resultsTableBody');
+var resultHeaderArray = ['Image', 'Views', 'Clicks', 'Clicks Per View', 'Overall Performance'];
 
 function Image(name, source){
   this.name = name;
   this.source = source;
   this.views = 0;
   this.clicks = 0;
-  this.clicksPerView = this.clicks / this.views;
-  this.clicksPerOverall = this.clicks / 25;
+  this.clicksPerView = function () {
+    if (this.views === 0) {
+      return 0;
+    } else {
+      return (this.clicks / this.views) * 100;
+    }
+  };
+  this.clicksPerOverall = function() {
+    return (this.clicks / 25) * 100;
+  };
   allImages.push(this);
 }
 
@@ -104,21 +119,83 @@ function clearDivs() {
 
 showNewImages();
 
+function showResults(){
+  for (var i = 0; i < resultHeaderArray.length; i++) {
+    var text = resultHeaderArray[i];
+    var td = document.createElement('td');
+    var textNode = document.createTextNode(text);
+    td.appendChild(textNode);
+    resultsHeaderRow.appendChild(td);
+  }
+  for (var j = 0; j < allImages.length; j++) {
+    var currentImage = allImages[j];
+    //image name
+    var imageTr = document.createElement('tr');
+    var imageNameTd = document.createElement('td');
+    var imageNameText = document.createTextNode(currentImage.name);
+    imageNameTd.appendChild(imageNameText);
+    imageTr.appendChild(imageNameTd);
+    //image views
+    var imageViewsTd = document.createElement('td');
+    var imageViewsText = document.createTextNode(currentImage.views);
+    imageViewsTd.appendChild(imageViewsText);
+    imageTr.appendChild(imageViewsTd);
+    //image clicks
+    var imageClicksTd = document.createElement('td');
+    var imageClicksText = document.createTextNode(currentImage.clicks);
+    imageClicksTd.appendChild(imageClicksText);
+    imageTr.appendChild(imageClicksTd);
+    //clicks per view
+    var imageClicksPerViewTd = document.createElement('td');
+    var imageClicksPerViewText = document.createTextNode(currentImage.clicksPerView());
+    imageClicksPerViewTd.appendChild(imageClicksPerViewText);
+    imageTr.appendChild(imageClicksPerViewTd);
+    //clicks per overall
+    var imageClicksPerOverallTd = document.createElement('td');
+    var imageClicksPerOverallText = document.createTextNode(currentImage.clicksPerOverall());
+    imageClicksPerOverallTd.appendChild(imageClicksPerOverallText);
+    imageTr.appendChild(imageClicksPerOverallTd);
+    //append last
+    resultsTableBody.appendChild(imageTr);
+  }
+}
+
 image1El.addEventListener('click', function(){
   allImages[queue[3]].clicks++;
   console.log(allImages[queue[3]].name + ' clicks ' + allImages[queue[3]].clicks);
-  clearDivs();
-  showNewImages();
+  if (overAllClicks < 25) {
+    clearDivs();
+    showNewImages();
+  } else {
+    testSection.setAttribute('class', 'hideSection');
+    showResults();
+  }
 });
 image2El.addEventListener('click', function(){
   allImages[queue[4]].clicks++;
   console.log(allImages[queue[4]].name + ' clicks ' + allImages[queue[4]].clicks);
-  clearDivs();
-  showNewImages();
+  if (overAllClicks < 25) {
+    clearDivs();
+    showNewImages();
+  } else {
+    testSection.setAttribute('class', 'hideSection');
+    showResults();
+  }
 });
 image3El.addEventListener('click', function(){
   allImages[queue[5]].clicks++;
   console.log(allImages[queue[5]].name + ' clicks ' + allImages[queue[5]].clicks);
-  clearDivs();
-  showNewImages();
+  if (overAllClicks < 25) {
+    clearDivs();
+    showNewImages();
+  } else {
+    testSection.setAttribute('class', 'hideSection');
+    showResults();
+  }
+});
+
+startButton.addEventListener('click', function(event){
+  event.preventDefault();
+  introSection.setAttribute('class', 'hideSection');
+  testSection.classList.remove('hideSection');
 });
