@@ -126,6 +126,7 @@ function calcResults(){
     var currentListImage = allImages[h];
     chartLabels.push(currentListImage.name);
     chartData.push(currentListImage.clicks);
+    // chartClickPercentage.push(clicksPerOverall());
   }
   console.log('chart data ' + chartData);
   console.log('chart labels ' + chartLabels);
@@ -170,9 +171,9 @@ startButton.addEventListener('click', function(event){
 
 var labelColors = ['#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07', '#262d13', '#d9e2e5', '#6e7d7b'];
 
-var ctx = document.getElementById('resultChart').getContext('2d');
+var ctx = document.getElementById('barChart').getContext('2d');
 
-var myChart = new Chart(ctx, {
+var barChart = new Chart(ctx, {
   type: 'bar',
   data: {
     labels: chartLabels,
@@ -189,6 +190,26 @@ var myChart = new Chart(ctx, {
           min: 0
         }
       }]
+    }
+  }
+});
+
+var ctx2 = document.getElementById('pieChart').getContext('2d');
+
+var pieChart = new Chart(ctx2, {
+  type: 'pie',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: 'Percentage of Overall Clicks',
+      backgroundColor: labelColors,
+      data: chartData
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Percentage Per clicks'
     }
   }
 });
