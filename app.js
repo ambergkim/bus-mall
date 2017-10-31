@@ -168,7 +168,7 @@ startButton.addEventListener('click', function(event){
   testSection.classList.remove('hideSection');
 });
 
-var labelColors = ['red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple'];
+var labelColors = ['#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07' , '#262d13', '#d9e2e5', '#6e7d7b', '#556e07', '#262d13', '#d9e2e5', '#6e7d7b'];
 
 var ctx = document.getElementById('resultChart').getContext('2d');
 
