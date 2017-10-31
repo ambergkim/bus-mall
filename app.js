@@ -1,3 +1,4 @@
+'use strict';
 var overAllClicks = 0;
 var introSection = document.getElementById('intro');
 var startButton = document.getElementById('startButton');
@@ -116,55 +117,18 @@ function clearDivs() {
 
 showNewImages();
 
-function showResults(){
+var chartLabels = [];
+var chartData = [];
+
+function calcResults(){
   resultSection.classList.remove('hideSection');
   for (var h = 0; h < allImages.length; h++) {
-    currentListImage = allImages[h];
-    if (currentListImage.clicks > 0) {
-      var li = document.createElement('li');
-      var liText = document.createTextNode(currentListImage.clicks + ' votes for: ' + currentListImage.name + '.');
-      li.appendChild(liText);
-      votesList.appendChild(li);
-    }
+    var currentListImage = allImages[h];
+    chartLabels.push(currentListImage.name);
+    chartData.push(currentListImage.clicks);
   }
-  for (var i = 0; i < resultHeaderArray.length; i++) {
-    var text = resultHeaderArray[i];
-    var td = document.createElement('td');
-    var textNode = document.createTextNode(text);
-    td.appendChild(textNode);
-    resultsHeaderRow.appendChild(td);
-  }
-  for (var j = 0; j < allImages.length; j++) {
-    var currentImage = allImages[j];
-    //image name
-    var imageTr = document.createElement('tr');
-    var imageNameTd = document.createElement('td');
-    var imageNameText = document.createTextNode(currentImage.name);
-    imageNameTd.appendChild(imageNameText);
-    imageTr.appendChild(imageNameTd);
-    //image views
-    var imageViewsTd = document.createElement('td');
-    var imageViewsText = document.createTextNode(currentImage.views);
-    imageViewsTd.appendChild(imageViewsText);
-    imageTr.appendChild(imageViewsTd);
-    //image clicks
-    var imageClicksTd = document.createElement('td');
-    var imageClicksText = document.createTextNode(currentImage.clicks);
-    imageClicksTd.appendChild(imageClicksText);
-    imageTr.appendChild(imageClicksTd);
-    //clicks per view
-    var imageClicksPerViewTd = document.createElement('td');
-    var imageClicksPerViewText = document.createTextNode(currentImage.clicksPerView());
-    imageClicksPerViewTd.appendChild(imageClicksPerViewText);
-    imageTr.appendChild(imageClicksPerViewTd);
-    //clicks per overall
-    var imageClicksPerOverallTd = document.createElement('td');
-    var imageClicksPerOverallText = document.createTextNode(currentImage.clicksPerOverall());
-    imageClicksPerOverallTd.appendChild(imageClicksPerOverallText);
-    imageTr.appendChild(imageClicksPerOverallTd);
-    //append last
-    resultsTableBody.appendChild(imageTr);
-  }
+  console.log('chart data ' + chartData);
+  console.log('chart labels ' + chartLabels);
 }
 
 image1El.addEventListener('click', function(){
@@ -174,7 +138,7 @@ image1El.addEventListener('click', function(){
     showNewImages();
   } else {
     testSection.setAttribute('class', 'hideSection');
-    showResults();
+    calcResults();
   }
 });
 image2El.addEventListener('click', function(){
@@ -184,7 +148,7 @@ image2El.addEventListener('click', function(){
     showNewImages();
   } else {
     testSection.setAttribute('class', 'hideSection');
-    showResults();
+    calcResults();
   }
 });
 image3El.addEventListener('click', function(){
@@ -194,7 +158,7 @@ image3El.addEventListener('click', function(){
     showNewImages();
   } else {
     testSection.setAttribute('class', 'hideSection');
-    showResults();
+    calcResults();
   }
 });
 
@@ -202,4 +166,29 @@ startButton.addEventListener('click', function(event){
   event.preventDefault();
   introSection.setAttribute('class', 'hideSection');
   testSection.classList.remove('hideSection');
+});
+
+var labelColors = ['red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple', 'red', 'blue', 'green', 'yellow', 'purple'];
+
+var ctx = document.getElementById('resultChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: chartLabels,
+    datasets: [{
+      label: '# of Votes',
+      data: chartData,
+      backgroundColor: labelColors
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 0
+        }
+      }]
+    }
+  }
 });
