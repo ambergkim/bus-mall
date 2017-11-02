@@ -129,17 +129,15 @@ var chartClickPercentage = [];
 var labelColors = ['#262d13' , '#4f5b26', '#75863a', '#6e7d7b', '#95ab4b', '#556e07', '#75980a', '#96c20e', '#afe211' , '#c3fd16', '#189d4c', '#4ebd85', '#58bdae' , '#5a7891', '#3c4f5f', '#535f5e', '#748584', '#94aaa9', '#d9e2e5', '#efefef'];
 
 function calcResults(){
-  if (localStorage.getItem('chartData') !== null) {
-    console.log('there is chart data in local storage');
+  if (localStorage.getItem('chartData') !== null && localStorage.getItem('chartClickPercentage') !== null) {
     var getChartData = localStorage.getItem('chartData');
     var getChartLabels = localStorage.getItem('chartLabels');
     var getChartColors = localStorage.getItem('labelColors');
+    var getChartClickPercentage = localStorage.getItem('chartClickPercentage');
     chartData = JSON.parse(getChartData);
     chartLabels = JSON.parse(getChartLabels);
     labelColors = JSON.parse(getChartColors);
-    console.log('new chart data from local storage ' + chartData);
-    console.log('new chart label form local storage ' + chartLabels);
-    console.log('new chart colors from local storage ' + labelColors);
+    chartClickPercentage = JSON.parse(getChartClickPercentage);
     resultSection.classList.remove('hideSection');
     introSection.setAttribute('class', 'hideSection');
     createCharts();
@@ -154,9 +152,11 @@ function calcResults(){
     var chartJSON = JSON.stringify(chartData);
     var labelJSON = JSON.stringify(chartLabels);
     var colorsJSON = JSON.stringify(labelColors);
+    var percentageJSON = JSON.stringify(chartClickPercentage);
     localStorage.setItem('chartData', chartJSON);
     localStorage.setItem('chartLabels', labelJSON);
     localStorage.setItem('labelColors', colorsJSON);
+    localStorage.setItem('chartClickPercentage', percentageJSON);
     createCharts();
   }
 }
@@ -237,7 +237,7 @@ function createCharts() {
       datasets: [{
         label: 'Percentage of Overall Clicks',
         backgroundColor: labelColors,
-        data: chartData
+        data: chartClickPercentage
       }]
     },
     options: {
