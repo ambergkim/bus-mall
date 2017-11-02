@@ -13,6 +13,12 @@ var resultsHeaderRow = document.getElementById('resultsHeaderRow');
 var resultsTableBody = document.getElementById('resultsTableBody');
 var resultHeaderArray = ['Image', 'Views', 'Clicks', '% Clicks/View', '% Clicks Overall'];
 
+var resetResearchData = document.getElementById('resetResearchData');
+resetResearchData.addEventListener('click', function(event){
+  event.preventDefault();
+  localStorage.clear();
+});
+
 function Image(name, source){
   this.name = name;
   this.source = source;
@@ -120,18 +126,46 @@ showNewImages();
 var chartLabels = [];
 var chartData = [];
 var chartClickPercentage = [];
+var labelColors = ['#262d13' , '#4f5b26', '#75863a', '#6e7d7b', '#95ab4b', '#556e07', '#75980a', '#96c20e', '#afe211' , '#c3fd16', '#189d4c', '#4ebd85', '#58bdae' , '#5a7891', '#3c4f5f', '#535f5e', '#748584', '#94aaa9', '#d9e2e5', '#efefef'];
 
 function calcResults(){
-  resultSection.classList.remove('hideSection');
-  for (var h = 0; h < allImages.length; h++) {
-    var currentListImage = allImages[h];
-    chartLabels.push(currentListImage.name);
-    chartData.push(currentListImage.clicks);
-    chartClickPercentage.push(currentListImage.clicksPerOverall());
+  if (localStorage.getItem('chartData') !== null) {
+    console.log('there is chart data in local storage');
+    var getChartData = localStorage.getItem('chartData');
+    var getChartLabels = localStorage.getItem('chartLabels');
+    var getChartColors = localStorage.getItem('labelColors');
+    chartData = JSON.parse(getChartData);
+    chartLabels = JSON.parse(getChartLabels);
+    labelColors = JSON.parse(getChartColors);
+    console.log('new chart data from local storage ' + chartData);
+    console.log('new chart label form local storage ' + chartLabels);
+    console.log('new chart colors from local storage ' + labelColors);
+    resultSection.classList.remove('hideSection');
+    introSection.setAttribute('class', 'hideSection');
+    createCharts();
+  } else {
+    resultSection.classList.remove('hideSection');
+    for (var h = 0; h < allImages.length; h++) {
+      var currentListImage = allImages[h];
+      chartLabels.push(currentListImage.name);
+      chartData.push(currentListImage.clicks);
+      chartClickPercentage.push(currentListImage.clicksPerOverall());
+    }
+    var chartJSON = JSON.stringify(chartData);
+    var labelJSON = JSON.stringify(chartLabels);
+    var colorsJSON = JSON.stringify(labelColors);
+    localStorage.setItem('chartData', chartJSON);
+    localStorage.setItem('chartLabels', labelJSON);
+    localStorage.setItem('labelColors', colorsJSON);
+    createCharts();
   }
-  console.log('chart data ' + chartData);
-  console.log('chart labels ' + chartLabels);
 }
+
+var lastSession = document.getElementById('retrieveLast');
+lastSession.addEventListener('click', function(event){
+  event.preventDefault();
+  calcResults();
+});
 
 image1El.addEventListener('click', function(){
   allImages[queue[3]].clicks++;
@@ -170,47 +204,47 @@ startButton.addEventListener('click', function(event){
   testSection.classList.remove('hideSection');
 });
 
-var labelColors = ['#262d13' , '#4f5b26', '#75863a', '#6e7d7b', '#95ab4b', '#556e07', '#75980a', '#96c20e', '#afe211' , '#c3fd16', '#189d4c', '#4ebd85', '#58bdae' , '#5a7891', '#3c4f5f', '#535f5e', '#748584', '#94aaa9', '#d9e2e5', '#efefef'];
+function createCharts() {
+  var ctx = document.getElementById('barChart').getContext('2d');
 
-var ctx = document.getElementById('barChart').getContext('2d');
-
-var barChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: chartLabels,
-    datasets: [{
-      label: '# of Votes',
-      data: chartData,
-      backgroundColor: labelColors
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          min: 0
-        }
+  var barChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        label: '# of Votes',
+        data: chartData,
+        backgroundColor: labelColors
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            min: 0
+          }
+        }]
+      }
     }
-  }
-});
+  });
 
-var ctx2 = document.getElementById('pieChart').getContext('2d');
+  var ctx2 = document.getElementById('pieChart').getContext('2d');
 
-var pieChart = new Chart(ctx2, {
-  type: 'pie',
-  data: {
-    labels: chartLabels,
-    datasets: [{
-      label: 'Percentage of Overall Clicks',
-      backgroundColor: labelColors,
-      data: chartClickPercentage
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'Percentage Per clicks'
+  var pieChart = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        label: 'Percentage of Overall Clicks',
+        backgroundColor: labelColors,
+        data: chartData
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Percentage Per clicks'
+      }
     }
-  }
-});
+  });
+}
