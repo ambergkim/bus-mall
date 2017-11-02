@@ -68,10 +68,32 @@ button {
   font-size: 2em;
   border-style: none;
   padding: 0.25em 1em;
+  margin-bottom: 1em;
 }
 
 button:hover {
   background-color: #6e7d7b;
+}
+
+#retrieveLast {
+  background-color: #6e7d7b;
+}
+
+#retrieveLast:hover {
+  background-color: #efefef;
+  color: black;
+  border: solid 2px black;
+}
+
+#resetResearchData {
+  background-color: white;
+  color: #262d13;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+
+#resetResearchData:hover {
+  color: #556e07;
 }
 
 ul {
